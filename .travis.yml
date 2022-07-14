@@ -10,7 +10,6 @@ addons:
   apt:
     packages:
       - docker-ce
-
 env:
   - DEPLOY=false repo=ibmjava:jre docker_archs="amd64 ppc64le s390x"
 
@@ -21,13 +20,6 @@ before_script:
   - export ver=$(curl -s "https://pkgs.alpinelinux.org/package/edge/main/x86_64/curl" | grep -A3 Version | grep href | sed 's/<[^>]*>//g' | tr -d " ")
   - export build_date=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
   - export vcs_ref=$(git rev-parse --short HEAD)
-  
-script:
-  - export DOCKER_CLI_EXPERIMENTAL=enabled # crucial to use manifest
-
-after_success:
-  - docker images
-  - docker manifest inspect --verbose lucashalbert/curl # A multiarch build
   
 branches:
   only:
