@@ -6,17 +6,4 @@ os: linux
 services:
   - docker
 
-addons:
-  apt:
-    packages:
-      - docker-ce
-env:
-  - DEPLOY=false repo=ibmjava:jre docker_archs="amd64 ppc64le s390x"
-
-install:
-  - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-
-before_script:
-  - export ver=$(curl -s "https://pkgs.alpinelinux.org/package/edge/main/x86_64/curl" | grep -A3 Version | grep href | sed 's/<[^>]*>//g' | tr -d " ")
-  - export build_date=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-  - export vcs_ref=$(git rev-parse --short HEAD)
+script: echo "Testing Docker on Jammy!" 
